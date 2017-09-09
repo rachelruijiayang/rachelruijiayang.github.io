@@ -1,0 +1,55 @@
+<html>
+<head>
+</head>
+
+<body>
+<script>
+
+function getEmailOfUni(uni)
+{
+	/*
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "https://directory.columbia.edu/people/search", false);
+
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	xhr.send("filter.searchTerm="+uni+"&advancedsearch=0&filter.email=&filter.uni=&filter.phone=&filter.title=&filter.department=&filter.soundex=&x=0&y=0&pageSize=20");
+
+	console.log(xhr.response);
+*/
+	return uni + "@columbia.edu";
+}
+
+function getTextOfEmailList(email_list) {
+	res = "";
+
+	for (var i = 0; i < email_list.length; i++) {
+		res = res + email_list[i][0] + " " + email_list[i][1] + "<br />";
+	}
+	return res;
+}
+
+function processInputUnis()
+{
+	email_list = [];
+	var input_unis_box = document.getElementById("input_unis_box");
+	var lines = input_unis_box.value.split('\n');
+	
+	for (var i = 0; i < lines.length; i++) {
+		email_list.push([lines[i], getEmailOfUni(lines[i])]);
+	}
+	
+	email_list_to_text = getTextOfEmailList(email_list);
+
+	document.getElementById("email_results").innerHTML = email_list_to_text;
+}
+
+</script>
+
+<p>Paste in the UNIs you would like to convert to email. Put each UNI on its own line:</p>
+<textarea id="input_unis_box" rows="10" cols="50">
+</textarea>
+<button onclick="processInputUnis()">Convert!</button>
+<p id="email_results">Results will show up here.</p>
+</body>
+</html>
